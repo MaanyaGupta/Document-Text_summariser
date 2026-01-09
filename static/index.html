@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Summarizer | AI-Powered Text Analysis</title>
+    <meta name="description" content="Summarize documents with AI or locally. Support for PDF, Word, and text files.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>📚 Saved</h2>
+                <button class="btn-icon" id="refreshSaved" title="Refresh">🔄</button>
+            </div>
+            <div class="saved-list" id="savedList">
+                <div class="empty-state">
+                    <span>No saved summaries</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="logo">
+                    <span class="logo-icon">📄</span>
+                    <h1>Document Summarizer</h1>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-secondary" id="toggleSidebar">📚 History</button>
+                </div>
+            </header>
+
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="tabs">
+                    <button class="tab active" data-tab="upload">📁 Upload File</button>
+                    <button class="tab" data-tab="paste">📝 Paste Text</button>
+                </div>
+
+                <div class="tab-content active" id="uploadTab">
+                    <div class="dropzone" id="dropzone">
+                        <div class="dropzone-content">
+                            <span class="dropzone-icon">📤</span>
+                            <h3>Drop your file here</h3>
+                            <p>or click to browse</p>
+                            <span class="dropzone-formats">Supports PDF, DOCX, TXT</span>
+                        </div>
+                        <input type="file" id="fileInput" accept=".pdf,.docx,.txt,.md,.text" hidden>
+                    </div>
+                    <div class="file-info" id="fileInfo" hidden>
+                        <span class="file-icon">📎</span>
+                        <span class="file-name" id="fileName"></span>
+                        <button class="btn-icon" id="clearFile">✕</button>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="pasteTab">
+                    <textarea id="textInput" placeholder="Paste your text here..." rows="8"></textarea>
+                </div>
+
+                <!-- Options -->
+                <div class="options-grid">
+                    <div class="option-group">
+                        <label>Summary Length</label>
+                        <div class="toggle-group length-group">
+                            <button class="toggle" data-length="short">Short</button>
+                            <button class="toggle active" data-length="medium">Medium</button>
+                            <button class="toggle" data-length="long">Long</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn-primary" id="summarizeBtn">
+                        <span class="btn-icon">✨</span>
+                        Summarize
+                    </button>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="saveCheckbox">
+                        <span>Save summary</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" hidden>
+                <div class="results-header">
+                    <h2>Results</h2>
+                    <div class="results-meta" id="resultsMeta"></div>
+                </div>
+
+                <!-- Summary Card -->
+                <div class="result-card">
+                    <div class="card-header">
+                        <h3>📝 Summary</h3>
+                        <button class="btn-icon" id="copySummary" title="Copy">📋</button>
+                    </div>
+                    <div class="card-content" id="summaryContent">
+                        <!-- Summary text goes here -->
+                    </div>
+                </div>
+
+                <!-- Key Points Card -->
+                <div class="result-card">
+                    <div class="card-header">
+                        <h3>📌 Key Points</h3>
+                        <button class="btn-icon" id="copyKeyPoints" title="Copy">📋</button>
+                    </div>
+                    <ul class="key-points-list" id="keyPointsList">
+                        <!-- Key points go here -->
+                    </ul>
+                </div>
+
+                <!-- Export Options -->
+                <div class="export-section">
+                    <button class="btn-secondary" id="exportTxt">📄 Export TXT</button>
+                    <button class="btn-secondary" id="exportJson">📊 Export JSON</button>
+                </div>
+            </section>
+
+            <!-- Loading State -->
+            <div class="loading-overlay" id="loadingOverlay" hidden>
+                <div class="loader">
+                    <div class="loader-spinner"></div>
+                    <span>Analyzing document...</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+
+</html>
