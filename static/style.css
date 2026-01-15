@@ -472,41 +472,79 @@ textarea::placeholder {
 
 /* ===== API Key Section ===== */
 .api-key-section {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
     margin-bottom: var(--space-lg);
+    animation: fadeIn 0.3s ease;
 }
 
-.api-key-section label {
+.api-key-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: var(--space-sm);
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-md);
 }
 
-.link-small {
+.api-key-header label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.api-key-link {
     color: var(--accent-primary);
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    transition: color var(--transition-fast);
 }
 
-.link-small:hover {
+.api-key-link:hover {
+    color: var(--accent-secondary);
     text-decoration: underline;
 }
 
-.api-key-section input {
-    width: 100%;
-    background: var(--bg-glass);
+.api-key-input-wrapper {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.api-key-input-wrapper input {
+    flex: 1;
+    background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     padding: var(--space-md);
     color: var(--text-primary);
     font-family: inherit;
+    font-size: 0.95rem;
 }
 
-.api-key-section input:focus {
+.api-key-input-wrapper input:focus {
     outline: none;
     border-color: var(--accent-primary);
+}
+
+.api-key-input-wrapper input::placeholder {
+    color: var(--text-muted);
+}
+
+.api-key-input-wrapper .btn-icon {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+}
+
+.api-key-save {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.api-key-save span {
+    color: var(--text-secondary);
 }
 
 /* ===== Action Buttons ===== */

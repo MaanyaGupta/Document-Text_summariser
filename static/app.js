@@ -5,7 +5,6 @@
 // State
 const state = {
     file: null,
-    mode: 'local',
     length: 'medium',
     currentResult: null
 };
@@ -59,7 +58,6 @@ const elements = {
 function init() {
     setupEventListeners();
     loadSavedSummaries();
-    loadApiKey();
 }
 
 // Event Listeners
@@ -153,22 +151,12 @@ function clearFile() {
     elements.dropzone.style.display = 'block';
 }
 
-// Mode and length
-function setMode(mode) {
-    state.mode = mode;
-    elements.modeToggles.forEach(t => t.classList.toggle('active', t.dataset.mode === mode));
-    elements.apiKeySection.hidden = mode !== 'online';
-}
-
+// Length
 function setLength(length) {
     state.length = length;
     elements.lengthToggles.forEach(t => t.classList.toggle('active', t.dataset.length === length));
 }
 
-// API Key
-function loadApiKey() {
-    // No longer needed - using local mode only
-}
 
 // Summarize
 async function handleSummarize() {
@@ -185,9 +173,8 @@ async function handleSummarize() {
         return;
     }
 
-    // Build request - always use local mode
+    // Build request
     const params = new URLSearchParams({
-        mode: 'local',
         length: state.length,
         save: elements.saveCheckbox.checked ? 'true' : 'false'
     });

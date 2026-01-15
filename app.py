@@ -35,16 +35,12 @@ def summarize():
         - Form data with 'file' upload
     
     Query params:
-        - mode: 'local' or 'online'
         - length: 'short', 'medium', or 'long'
-        - api_key: API key for online mode
         - save: 'true' to save the summary
     """
     try:
         # Get parameters
-        mode = request.args.get('mode', 'local')
         length = request.args.get('length', 'medium')
-        api_key = request.args.get('api_key', '')
         should_save = request.args.get('save', 'false').lower() == 'true'
         
         # Get text from request
@@ -68,8 +64,8 @@ def summarize():
         if not text or not text.strip():
             return jsonify({'error': 'No text provided'}), 400
         
-        # Get summarizer
-        summarizer = get_summarizer(mode, api_key if mode == 'online' else None)
+        # Get local summarizer
+        summarizer = get_summarizer('local')
         
         # Generate summary and key points
         summary = summarizer.summarize(text, length)
@@ -78,7 +74,7 @@ def summarize():
         result = {
             'summary': summary,
             'key_points': key_points,
-            'mode': mode,
+            'mode': 'local',
             'length': length,
             'filename': filename,
             'file_type': file_type,
@@ -167,4 +163,6 @@ if __name__ == '__main__':
     print("🚀 Document Summarizer starting...")
     print("📄 Open http://localhost:5000 in your browser")
     
-    app.run(debug=True, port=5000)
+    # Use PORT from environment for Render deployment
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
